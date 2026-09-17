@@ -5,7 +5,7 @@ The official website of **Zappale** — a keyboard-first launcher for macOS.
 Live at:
 
 - https://zappale.com (custom domain, Cloudflare Pages)
-- https://zappale.pages.dev (Cloudflare Pages)
+- https://www.zappale.com (custom domain, Cloudflare Pages)
 - https://zappale.github.io (GitHub Pages)
 
 ## Stack
