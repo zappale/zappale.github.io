@@ -1,45 +1,30 @@
-// Zappale site interactions: theme toggle, copy buttons, scroll reveal.
+// Zappale site interactions: mobile menu, scroll reveal, footer year.
 (function () {
   "use strict";
 
-  // Theme toggle
-  var toggle = document.getElementById("themeToggle");
-  if (toggle) {
-    toggle.addEventListener("click", function () {
-      var dark = document.documentElement.classList.toggle("dark");
-      try { localStorage.setItem("zappale-theme", dark ? "dark" : "light"); } catch (e) {}
+  // Mobile menu
+  var menuBtn = document.querySelector(".menu-btn");
+  var mobileNav = document.getElementById("siteNavMobile");
+  if (menuBtn && mobileNav) {
+    var closeMenu = function () {
+      menuBtn.setAttribute("aria-expanded", "false");
+      mobileNav.hidden = true;
+    };
+    menuBtn.addEventListener("click", function () {
+      var open = menuBtn.getAttribute("aria-expanded") === "true";
+      menuBtn.setAttribute("aria-expanded", String(!open));
+      mobileNav.hidden = open;
     });
-  }
-
-  // Copy buttons
-  document.querySelectorAll(".copy[data-copy]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var el = document.getElementById(btn.getAttribute("data-copy"));
-      if (!el) return;
-      var text = el.textContent.trim();
-      var done = function () {
-        btn.textContent = "Copied";
-        btn.classList.add("done");
-        setTimeout(function () {
-          btn.textContent = "Copy";
-          btn.classList.remove("done");
-        }, 1600);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done, done);
-      } else {
-        var ta = document.createElement("textarea");
-        ta.value = text;
-        ta.style.position = "fixed";
-        ta.style.opacity = "0";
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand("copy"); } catch (e) {}
-        document.body.removeChild(ta);
-        done();
+    mobileNav.addEventListener("click", function (e) {
+      if (e.target.closest("a")) closeMenu();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menuBtn.getAttribute("aria-expanded") === "true") {
+        closeMenu();
+        menuBtn.focus();
       }
     });
-  });
+  }
 
   // Scroll reveal
   var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
