@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-mode="sys" data-theme="light">
+<head>
+  <meta charset="utf-8 />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Zappale — macOS 键盘优先的启动器</title>
+  <meta name="description" content="Zappale 是一款键盘优先的 macOS 启动器：启动应用、就地计算、回溯剪贴板、展开文本片段、排布窗口——原生开发，开源，无需账号。" />
+  <meta name="application-name" content="Zappale" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
+  <link rel="canonical" href="https://zappale.com/zh/" />
+  <link rel="alternate" hreflang="en" href="https://zappale.com/" />
+  <link rel="alternate" hreflang="zh" href="https://zappale.com/zh/" />
+  <link rel="alternate" hreflang="ja" href="https://zappale.com/ja/" />
+  <link rel="alternate" hreflang="x-default" href="https://zappale.com/" />
+  <meta property="og:title" content="Zappale — macOS 键盘优先的启动器" />
+  <meta property="og:description" content="一个小巧的指令面板：应用、计算、剪贴板、片段与窗口，几次按键直达。原生、开源、无需账号。" />
+  <meta property="og:url" content="https://zappale.com/zh/" />
+  <meta property="og:image" content="https://zappale.com/assets/og.jpg" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content="Zappale" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230073E5'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='34' fill='%23fff'%3EZ%3C/text%3E%3C/svg%3E" />
+  <link rel="preload" href="../assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../assets/fonts/roboto-mono-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>(function () {
+      var mode = null;
+      try { mode = localStorage.getItem("zappale-mode"); } catch (e) {}
+      if (mode !== "light" && mode !== "dark") mode = "sys";
+      var dark = mode === "dark" || (mode === "sys" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      var root = document.documentElement;
+      root.dataset.mode = mode;
+      root.dataset.theme = dark ? "dark" : "light";
+    })();</script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+
+  <header class="masthead">
+    <div class="container masthead-inner">
+      <a class="brand" href="#top" aria-label="Zappale">
+        <span class="brand-mark" aria-hidden="true">Z</span>
+        <span class="brand-name">Zappale</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary"><a href="#features">功能</a><a href="#keyboard">键盘</a><a href="#principles">原则</a><a href="#start">快速上手</a></nav>
+      <div class="masthead-actions">
+        <nav class="lang-nav" aria-label="Language"><a href="../index.html" lang="en">EN</a><a href="index.html" lang="zh" aria-current="true">中</a><a href="../ja/index.html" lang="ja">日</a></nav>
+        <button class="theme-btn" id="themeBtn" type="button" title="主题：跟随系统" aria-label="主题：跟随系统" data-l-sys="主题：跟随系统" data-l-light="主题：浅色" data-l-dark="主题：深色">
+          <svg class="i-auto" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor"/></svg>
+          <svg class="i-light" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg>
+          <svg class="i-dark" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20.5 13.5A8.5 8.5 0 1 1 10.5 3.5a6.8 6.8 0 0 0 10 10Z"/></svg>
+        </button>
+        <a class="gh-chip" href="https://github.com/zappale" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-primary btn-small" href="https://github.com/zappale" target="_blank" rel="noopener">下载 Zappale</a>
+      </div>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobileNav">
+        <span class="menu-btn-box" aria-hidden="true"><span></span><span></span><span></span></span>菜单
+      </button>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" hidden aria-label="Mobile">
+      <div class="container">
+        <a href="#features">功能</a>
+        <a href="#keyboard">键盘</a>
+        <a href="#principles">原则</a>
+        <a href="#start">快速上手</a>
+        <div class="mobile-row">
+          <nav class="lang-nav" aria-label="Language"><a href="../index.html" lang="en">EN</a><a href="index.html" lang="zh" aria-current="true">中</a><a href="../ja/index.html" lang="ja">日</a></nav>
+        </div>
+        <a href="https://github.com/zappale" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-primary" href="https://github.com/zappale" target="_blank" rel="noopener">下载 Zappale</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+  <section class="hero" id="top">
+    <div class="container">
+      <p class="kicker reveal">Zappale · macOS 启动器</p>
+      <h1 class="display reveal">在你的 Mac 上，走最短的路径。</h1>
+      <p class="sub reveal">一个小巧的指令面板：启动应用、就地计算、回溯剪贴板、展开文本片段、排布窗口——几次按键直达。原生开发，开源，无需账号。</p>
+      <div class="cta-row reveal">
+        <a class="btn btn-primary" href="https://github.com/zappale" target="_blank" rel="noopener">下载 Zappale</a>
+        <a class="btn btn-ghost" href="#features">看看功能</a>
+      </div>
+      <ul class="stats reveal"><li>原生 AppKit</li><li>开源</li><li>无需账号</li></ul>
+      <div class="palette-demo reveal" role="img" aria-label="Zappale launcher palette">
+        <div class="pd-search"><span class="pd-q">gho</span><span class="caret"></span><span class="pd-kbd">⌥ Space</span></div>
+        <ul class="pd-list">
+          <li class="is-active"><span class="row-dot"></span><span class="row-title">Ghostty</span><span class="row-sub">Application</span><span class="row-kbd">↵</span></li>
+          <li><span class="row-dot"></span><span class="row-title">GitHub</span><span class="row-sub">Quicklink</span><span class="row-kbd">⌘ 1</span></li>
+          <li><span class="row-dot"></span><span class="row-title">gh pr checkout</span><span class="row-sub">Command</span><span class="row-kbd">⌘ K</span></li>
+        </ul>
+        <div class="pd-foot"><span>↵ Open</span><span>⌘ K Actions</span><span>Tab Switch</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <p class="sec-kicker reveal">功能</p>
+      <h2 class="sec-title reveal">小面板，大能耐。</h2>
+      <p class="sec-sub reveal">以下能力全部内置；不用的时候，绝不碍事。</p>
+      <div class="filters reveal" role="group" aria-label="Filters"><button class="chip is-active" type="button" data-filter="all">全部</button><button class="chip" type="button" data-filter="launcher">启动</button><button class="chip" type="button" data-filter="clipboard">剪贴板</button><button class="chip" type="button" data-filter="text">文本</button><button class="chip" type="button" data-filter="system">系统</button></div>
+      <div class="grid f-grid"><article class="card f-card reveal" data-cat="launcher"><h3>应用启动</h3><p>输入两个字母，打开任意已安装应用。常用项常驻；退出应用也只需一次按键。</p><div class="demo demo-launch"><div class="demo-query"><span class="q">gho</span><span class="caret"></span><span class="q-kbd">⌥ Space</span></div><ul><li class="demo-row is-active"><span class="row-dot"></span><span>gho</span><span class="row-kbd">↵</span></li><li class="demo-row"><span class="row-dot"></span><span>GitHub · 快捷链接</span><span class="row-kbd">⌘ 1</span></li><li class="demo-row"><span class="row-dot"></span><span>gh pr checkout · 命令</span><span class="row-kbd">⌘ K</span></li></ul></div></article><article class="card f-card reveal" data-cat="text"><h3>算式与换算</h3><p>加减乘除、百分比、单位与日期，在输入框里就地出结果，不用再开第二个应用。</p><div class="demo demo-calc"><span class="demo-expr">1250 × 24 + 8%</span><strong>32,400.00</strong></div></article><article class="card f-card reveal" data-cat="clipboard"><h3>剪贴板回溯</h3><p>复制过的文本、链接、图片与颜色都留在本机，可搜索、随时再粘贴。</p><ul class="demo demo-clip"><li class="demo-row is-active"><span class="row-kind">TXT</span><span class="row-text">部署清单 — 终版</span><span class="row-val"></span></li><li class="demo-row"><span class="row-kind">URL</span><span class="row-text">github.com/zappale</span><span class="row-val"></span></li><li class="demo-row"><span class="row-kind">CLR</span><span class="row-text"></span><span class="swatch"></span><span class="row-val">#0073E5</span></li></ul></article><article class="card f-card reveal" data-cat="text"><h3>文本片段</h3><p>短关键词展开成每天都要打的段落，占位符填充会变化的部分。</p><div class="demo demo-snip"><span class="demo-kw">!intro</span><p>你好！我是{name}，来自{team}，通常会在{hours}小时内回复。</p></div></article><article class="card f-card reveal" data-cat="system"><h3>窗口排布</h3><p>对半、三等分、居中、微调——窗口的移动与缩放全部由键盘完成。</p><div class="demo demo-win"><span class="win-box win-a">½</span><span class="win-box win-b">⅓</span><span class="win-box win-b">⅓</span><span class="win-box win-b">⅓</span></div></article><article class="card f-card reveal" data-cat="launcher"><h3>快捷链接</h3><p>常去的网站和搜索，从面板直接打开，不再翻标签页坟场。</p><ul class="demo demo-plain"><li class="demo-row"><span>GitHub</span><span class="row-kbd">⌘ 1</span></li><li class="demo-row"><span>邮件</span><span class="row-kbd">⌘ 2</span></li></ul></article><article class="card f-card reveal" data-cat="launcher"><h3>符号与表情</h3><p>按名字搜索全量符号与表情；常用项自动浮到最前。</p><div class="demo demo-emoji"><span>🚀</span><span>⌘</span><span>⌥</span><span>✓</span><span>…</span></div></article><article class="card f-card reveal" data-cat="system"><h3>系统动作</h3><p>锁屏、睡眠、清倒废纸篓、推出磁盘——不必再翻菜单栏。</p><ul class="demo demo-plain"><li class="demo-row"><span>睡眠</span><span class="row-kbd">↵</span></li><li class="demo-row"><span>锁屏</span><span class="row-kbd">↵</span></li><li class="demo-row"><span>清倒废纸篓</span><span class="row-kbd">↵</span></li></ul></article></div>
+    </div>
+  </section>
+
+  <section class="section" id="keyboard">
+    <div class="container">
+      <p class="sec-kicker reveal">键盘</p>
+      <h2 class="sec-title reveal">键盘就是界面。</h2>
+      <p class="sec-sub reveal">一个快捷键唤出面板，之后一切都在指尖。快捷键按按键位置映射，非美式键盘布局同样适用。</p>
+      <div class="keys reveal"><div class="key-row"><span class="keycaps"><kbd>⌥</kbd><kbd>Space</kbd></span><span class="key-desc">唤出或收起面板</span></div><div class="key-row"><span class="keycaps"><kbd>↵</kbd></span><span class="key-desc">运行选中项</span></div><div class="key-row"><span class="keycaps"><kbd>⌘</kbd><kbd>↵</kbd></span><span class="key-desc">运行次要操作</span></div><div class="key-row"><span class="keycaps"><kbd>⌘</kbd><kbd>K</kbd></span><span class="key-desc">打开该结果的操作菜单</span></div><div class="key-row"><span class="keycaps"><kbd>Tab</kbd></span><span class="key-desc">在启动器、剪贴板、计算器之间切换</span></div><div class="key-row"><span class="keycaps"><kbd>⌘</kbd><kbd>1…0</kbd></span><span class="key-desc">直接打开常用项 1–10</span></div><div class="key-row"><span class="keycaps"><kbd>esc</kbd></span><span class="key-desc">清空、后退、再关闭</span></div></div>
+    </div>
+  </section>
+
+  <section class="section" id="principles">
+    <div class="container">
+      <p class="sec-kicker reveal">原则</p>
+      <h2 class="sec-title reveal">天生安静。</h2>
+      <p class="sec-sub reveal">三条贯穿整个应用的设计准则，也是隐私故事的全部。</p>
+      <div class="grid p-grid"><article class="card p-card reveal"><span class="p-no">01</span><h3>本地优先</h3><p>你的剪贴板、片段与设置都留在你的 Mac 上。没有账号要注册，别处也不存在你的数据副本。</p></article><article class="card p-card reveal"><span class="p-no">02</span><h3>非请勿扰</h3><p>不采集使用统计，不追踪行为。应用在你的机器上完成工作，网络不在回路里。</p></article><article class="card p-card reveal"><span class="p-no">03</span><h3>用时再问</h3><p>功能在你第一次真正使用时才请求 macOS 权限——而不是首次启动就弹一墙对话框。</p></article></div>
+      <p class="fineprint reveal">想核对某项具体权限？仓库就是权威来源。</p>
+    </div>
+  </section>
+
+  <section class="section" id="start">
+    <div class="container">
+      <p class="sec-kicker reveal">快速上手</p>
+      <h2 class="sec-title reveal">三步上手。</h2>
+      <div class="grid s-grid"><article class="card s-card reveal"><span class="s-no">第 1 步</span><h3>获取应用</h3><p>从 GitHub 下载最新构建，拖进「应用程序」。</p></article><article class="card s-card reveal"><span class="s-no">第 2 步</span><h3>唤出面板</h3><p>按下 ⌥ Space，面板出现在屏幕中央——这就是全部界面。</p></article><article class="card s-card reveal"><span class="s-no">第 3 步</span><h3>输入两个字母</h3><p>教程到此结束。其余功能都会在你需要时才出现。</p></article></div>
+      <!-- TODO(zappale): when a Homebrew tap ships, add the install command block here. -->
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>免费、开源、公开构建。</h2>
+      <p>如果 Zappale 融入了你的工作流，去 GitHub 点个星，就是它前进的动力。</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/zappale" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-ghost" href="https://github.com/zappale" target="_blank" rel="noopener">给项目点星</a>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© 2026 Zappale · 公开构建</p>
+      <nav class="footer-links" aria-label="Footer"><a href="#features">功能</a><a href="#keyboard">键盘</a><a href="https://github.com/zappale" target="_blank" rel="noopener">GitHub</a><a href="#top">回到顶部 ↑</a></nav>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

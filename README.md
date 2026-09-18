@@ -4,16 +4,29 @@ The official website of **Zappale** — a keyboard-first launcher for macOS.
 
 Live at:
 
-- https://zappale.com (custom domain, Cloudflare Pages)
-- https://www.zappale.com (custom domain, Cloudflare Pages)
+- https://zappale.com / https://www.zappale.com (custom domain, Cloudflare Pages)
 - https://zappale.github.io (GitHub Pages)
+
+## Languages
+
+- `/` — English
+- `/zh/` — 简体中文
+- `/ja/` — 日本語
+
+Each page is fully translated (content, meta, `hreflang`, `og:locale`) and links
+to its counterparts via the header language switcher. Pages are generated from a
+single copy source (`gen-site.py`, kept outside the repo) and committed as plain
+HTML — no build step at deploy time.
 
 ## Stack
 
-- Pure static site: HTML + CSS + vanilla JS, no build step, no dependencies
-- Fonts: [Fraunces](https://fonts.google.com/specimen/Fraunces) and [Inter](https://fonts.google.com/specimen/Inter), self-hosted in `assets/fonts/` (no third-party font CDN)
-- Hero illustration generated with GPT Image 2, served as WebP with a JPEG fallback
-- Design language: warm paper (`#FAF6EF`), ink serif display, one orange accent (`#D9531E`) — "field manual" edition, mobile-first responsive
+- Pure static site: HTML + CSS + vanilla JS, no framework, no build step
+- Design language inspired by transitions.dev: near-white canvas, white cards
+  with hairline borders, blue accent (`#0073E5`), pill buttons, filter chips,
+  system/light/dark appearance toggle
+- Fonts: Inter + Roboto Mono, self-hosted in `assets/fonts/`
+- Trilingual: EN / 中文 / 日本語 with hreflang and per-language OG tags
+- OG share card rendered from HTML (`assets/og.jpg`)
 
 ## Development
 
